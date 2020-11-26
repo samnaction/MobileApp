@@ -1,23 +1,48 @@
 namespace MobileLibTests
 {
     using MobileLib;
+    using Moq;
     using NUnit.Framework;
 
     public class MobileLibTests
     {
         private Mobile mobile;
 
+        private Mock<Camera> mockedCamera;
+
         [SetUp]
         public void Setup()
         {
-            mobile = new Mobile();
+            mockedCamera = new Moq.Mock<Camera>();
+            mobile = new Mobile(mockedCamera.Object);
         }
 
         [Test]
-        public void TestPowerOn()
+        public void TestPowerOnWhenCameraOnWorksNormally()
         {
+            // SetUp
+            mockedCamera.Setup(x => x.On()).Returns(true);
+
+            // Act
             bool actualResponse = mobile.powerOn();
+
+            // Assert
             Assert.IsTrue(actualResponse);
+            mockedCamera.Verify(x => x.On(), Times.Once());
+        }
+
+        [Test]
+        public void TestPowerOnWhenCameraOnMalFunctions()
+        {
+            // SetUp
+            mockedCamera.Setup(x => x.On()).Returns(false);
+
+            // Act
+            bool actualResponse = mobile.powerOn();
+
+            // Assert
+            Assert.IsFalse(actualResponse);
+            mockedCamera.Verify(x => x.On(), Times.Once());
         }
     }
 }
