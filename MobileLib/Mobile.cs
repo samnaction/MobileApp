@@ -4,9 +4,9 @@
 
     public class Mobile
     {
-        private Camera camera;
+        private readonly ICamera camera;
 
-        public Mobile(Camera camera)
+        public Mobile(ICamera camera)
         {
             this.camera = camera;
         }

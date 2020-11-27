@@ -8,12 +8,12 @@ namespace MobileLibTests
     {
         private Mobile mobile;
 
-        private Mock<Camera> mockedCamera;
+        private Mock<ICamera> mockedCamera;
 
         [SetUp]
         public void Setup()
         {
-            mockedCamera = new Moq.Mock<Camera>();
+            mockedCamera = new Moq.Mock<ICamera>();
             mobile = new Mobile(mockedCamera.Object);
         }
 

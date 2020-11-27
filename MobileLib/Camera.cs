@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Camera
+    public class Camera : ICamera
     {
         public Camera()
         {
